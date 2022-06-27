@@ -2,7 +2,7 @@
     <arg name="rosbot_pro" default="false"/>
     <arg name="mecanum" default="false"/>
     <arg name="ns" default="" />
-    <rosparam name="tf_prefix" value="$(arg ns)"/>
+    <param name="tf_prefix" type="string" value="$(arg ns)"/>
     
     <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch"/>
     
