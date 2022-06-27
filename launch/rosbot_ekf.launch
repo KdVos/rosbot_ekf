@@ -1,4 +1,7 @@
 <launch>
+
+  <arg name="ns" default="" />
+
   <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">
     <rosparam command="load" file="$(find rosbot_ekf)/params/ekf_params.yaml" />
 
@@ -6,5 +9,13 @@
     <remap from="odometry/filtered" to="odom"/>
     <!-- <remap from="accel/filtered" to=""/> -->
    
-  </node>
+  </node> 
+  
+  <!--  Overwrite frame names to namespaced frame names -->
+  <param name="rosbot_ekf/odom_frame" type="string" value="$(arg ns)/odom" />
+  <param name="rosbot_ekf/base_link_frame" type="string" value="$(arg ns)/base_link" />
+  <param name="rosbot_ekf/world_frame" type="string" value="$(arg ns)/odom" />
+  <param name="rosbot_ekf/imu0" type="string" value="$(arg ns)/imu" />
+  <param name="rosbot_ekf/odom0" type="string" value="$(arg ns)/" />
+  
 </launch>
