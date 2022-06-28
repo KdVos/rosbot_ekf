@@ -1,6 +1,10 @@
 <launch>
 
-  <arg name="ns" default="" />
+  <arg name="ns" default=""/>
+
+  <group if= "$(eval arg('ns') != '')">
+    <param name="tf_prefix" type="string" value="$(arg ns)"/>
+  </group>
 
   <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">
     <rosparam command="load" file="$(find rosbot_ekf)/params/ekf_params.yaml" />
@@ -12,10 +16,12 @@
   </node> 
   
   <!--  Overwrite frame names to namespaced frame names -->
-  <param name="rosbot_ekf/odom_frame" type="string" value="$(arg ns)/odom" />
-  <param name="rosbot_ekf/base_link_frame" type="string" value="$(arg ns)/base_link" />
-  <param name="rosbot_ekf/world_frame" type="string" value="$(arg ns)/odom" />
-  <param name="rosbot_ekf/imu0" type="string" value="$(arg ns)/imu" />
-  <param name="rosbot_ekf/odom0" type="string" value="$(arg ns)/" />
-  
+  <group if= "$(eval arg('ns') != '')">
+    <param name="rosbot_ekf/odom_frame" type="string" value="odom" />
+    <param name="rosbot_ekf/base_link_frame" type="string" value="base_link" />
+    <param name="rosbot_ekf/world_frame" type="string" value="odom" />
+    <param name="rosbot_ekf/imu0" type="string" value="imu" />
+    <param name="rosbot_ekf/odom0" type="string" value="odom/wheel" />
+  </group>
+
 </launch>
