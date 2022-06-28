@@ -1,14 +1,29 @@
 #include "ros/ros.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "nav_msgs/Odometry.h"
+#include "sensor_msgs/Imu.h"
 #include <string>
+#include <ros/console.h>
 
 #define ODOM_COV 0.005
 #define MAIN_LOOP_RATE 20
 
+ros::Publisher *imu_pub_ptr;
 ros::Publisher *odom_pub_ptr;
 std::string tf_prefix_;
 bool has_prefix;
+
+void imuCallback(const sensor_msgs::Imu &imu_msg)
+{
+  sensor_msgs::Imu imu_msg_cor = imu_msg;
+
+  if (has_prefix)
+  {
+    imu_msg_cor.header.frame_id = tf_prefix_+ "/" + imu_msg.header.frame_id;
+  }
+
+    imu_pub_ptr->publish(imu_msg_cor);
+}
 
 void poseCallback(const geometry_msgs::PoseStamped &pose_msg)
 {
@@ -49,12 +64,17 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  has_prefix = ros::param::get("~tf_prefix", tf_prefix_);
+  has_prefix = ros::param::get("tf_prefix", tf_prefix_);
 
   ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("odom/wheel", 1);
   odom_pub_ptr = &odom_pub;
 
+  ros::Publisher imu_pub = n.advertise<sensor_msgs::Imu>("imu/correctedFrame", 1);
+  imu_pub_ptr = &imu_pub;
+
   ros::Subscriber pose_sub = n.subscribe("pose", 1000, poseCallback);
+  ros::Subscriber imu_sub = n.subscribe("imu", 1000, imuCallback);
+
 
   ros::Rate loop_rate(MAIN_LOOP_RATE);
 

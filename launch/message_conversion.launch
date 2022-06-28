@@ -1,4 +1,5 @@
 <launch>
+  <arg name="ns" default=''/>
   <node pkg="rosbot_ekf" type="msgs_conversion" name="msgs_conversion" respawn="true">
   </node>
 </launch>

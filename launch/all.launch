@@ -16,7 +16,9 @@
     
     <node if="$(arg mecanum)" pkg="rosservice" type="rosservice" name="set_kinematics" args="call --wait /config 'SKIN' 'MEC'"/>
 
-    <include file="$(find rosbot_ekf)/launch/message_conversion.launch"/>
+    <include file="$(find rosbot_ekf)/launch/message_conversion.launch">
+        <arg name = "ns" value = '$(arg ns)'/>
+    </include>
 
     <include file="$(find rosbot_ekf)/launch/rosbot_ekf.launch">
         <arg name = "ns" value = '$(arg ns)'/>
