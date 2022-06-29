@@ -20,7 +20,7 @@
     <param name="rosbot_ekf/odom_frame" type="string" value="odom" />
     <param name="rosbot_ekf/base_link_frame" type="string" value="base_link" />
     <param name="rosbot_ekf/world_frame" type="string" value="odom" />
-    <param name="rosbot_ekf/imu0" type="string" value="imu/correctedFrame" />
+    <param name="rosbot_ekf/imu0" type="string" value="imu" />
     <param name="rosbot_ekf/odom0" type="string" value="odom/wheel" />
   </group>
 
