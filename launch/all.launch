@@ -8,7 +8,9 @@
         <param name="tf_prefix" type="string" value="$(arg ns)"/>
     </group>
     
-    <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf_multi)/launch/rosserial_bridge.launch"/>
+    <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf_multi)/launch/rosserial_bridge.launch">
+        <arg name="ns" value="$(arg ns)"/>
+    </include>
 
     <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf_multi)/launch/rosserial_bridge.launch">
         <arg name="serial_port" value="/dev/ttyS4"/>
