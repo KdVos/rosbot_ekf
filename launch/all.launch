@@ -8,20 +8,20 @@
         <param name="tf_prefix" type="string" value="$(arg ns)"/>
     </group>
     
-    <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch"/>
+    <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf_multi)/launch/rosserial_bridge.launch"/>
 
-    <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
+    <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf_multi)/launch/rosserial_bridge.launch">
         <arg name="serial_port" value="/dev/ttyS4"/>
         <arg name="ns" value="$(arg ns)"/>
     </include>
     
     <node if="$(arg mecanum)" pkg="rosservice" type="rosservice" name="set_kinematics" args="call --wait /config 'SKIN' 'MEC'"/>
 
-    <include file="$(find rosbot_ekf)/launch/message_conversion.launch">
+    <include file="$(find rosbot_ekf_multi)/launch/message_conversion.launch">
         <arg name = "ns" value = '$(arg ns)'/>
     </include>
 
-    <include file="$(find rosbot_ekf)/launch/rosbot_ekf.launch">
+    <include file="$(find rosbot_ekf_multi)/launch/rosbot_ekf.launch">
         <arg name = "ns" value = '$(arg ns)'/>
     </include>
     
