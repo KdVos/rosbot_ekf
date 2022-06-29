@@ -7,7 +7,7 @@
   </group>
 
   <node pkg="robot_localization" type="ekf_localization_node" name="rosbot_ekf" clear_params="true">
-    <rosparam command="load" file="$(find rosbot_ekf)/params/ekf_params.yaml" />
+    <rosparam command="load" file="$(find rosbot_ekf_multi)/params/ekf_params.yaml" />
 
    <!--  Placeholder for output topic remapping -->
     <remap from="odometry/filtered" to="odom"/>
@@ -17,11 +17,11 @@
   
   <!--  Overwrite frame names to namespaced frame names -->
   <group if= "$(eval arg('ns') != '')">
-    <param name="rosbot_ekf/odom_frame" type="string" value="odom" />
-    <param name="rosbot_ekf/base_link_frame" type="string" value="base_link" />
-    <param name="rosbot_ekf/world_frame" type="string" value="odom" />
-    <param name="rosbot_ekf/imu0" type="string" value="imu" />
-    <param name="rosbot_ekf/odom0" type="string" value="odom/wheel" />
+    <param name="rosbot_ekf_multi/odom_frame" type="string" value="odom" />
+    <param name="rosbot_ekf_multi/base_link_frame" type="string" value="base_link" />
+    <param name="rosbot_ekf_multi/world_frame" type="string" value="odom" />
+    <param name="rosbot_ekf_multi/imu0" type="string" value="imu" />
+    <param name="rosbot_ekf_multi/odom0" type="string" value="odom/wheel" />
   </group>
 
 </launch>

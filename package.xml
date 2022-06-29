@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>rosbot_ekf</name>
+  <name>rosbot_ekf_multi</name>
   <version>1.0.0</version>
   <description>The rosbot_ekf package</description>
 
